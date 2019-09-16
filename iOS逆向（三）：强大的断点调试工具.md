@@ -61,6 +61,7 @@
 
 比如说，我们给没有隐藏符号表的app下断点：
 ![断点viewDidAppear:](https://img-blog.csdnimg.cn/2019091503312354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70)
+
 未隐藏符号表的程序，断点的时候，函数名也会显示出来。
 
 接下来我们将用到一个进阶命令：`register read` 查看寄存器信息：
@@ -69,8 +70,10 @@
 第二个参数是函数地址，对应`x1`寄存器。
 objc_msgSend中第三个参数（`x2`寄存器），就是viewDidAppear:后面的传参了，我们看到这个值是0. 回头看看`class-dump`，可以看到这个参数要求传一个布尔值，那么 我们就可以猜出该函数被调用时候，入参是false。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915035829663.png)
+
 有了对象和参数地址，你就拥有了一切。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915040155970.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70 )
+
 比如，我们通过class-dump 看到该类有这么一个属性，那我们就可以直接访问！
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915040558481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70)
 我们可以用`p`命令 输出一下对象，该功能有点类似于`expression`命令。
