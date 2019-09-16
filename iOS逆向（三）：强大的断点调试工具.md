@@ -49,7 +49,7 @@
 
 我们调试别人的app，是看不到源码的，只能看汇编。所以这里建议大家学一下汇编。我知道很多人听到汇编就头大，不过不要紧，找对了教材，汇编真的可以通俗易懂。比如这本：**《汇编语言第3版》王爽著**。学习时长**两三天**就够。不信你试试。
 我是从网上下的影印版PDF，阅读效果不太好，大家可以买正版书或者正版PDF来学习。
-![汇编语言第3版](https://img-blog.csdnimg.cn/20190915025745404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70 =90x132)
+
 学完了汇编，CPU工作原理你就基本了解了，再跟内存交流起来就方便多了。不过你可能还是看不懂**xcode**中出现的上古语言。因为两者的汇编指令集不一样，书里的CPU是古老的**8086**，是地址总线**20**位，数据总线**16**位的16位机器。而iPhone 5s之后都是**arm64** CPU，命令不太一样，总线位数也不一样，不过如果你理解了CPU的工作原理，**arm64**其实只是换了一种语法而已。而且CPU寻址操作也变得更简单。毕竟**arm64**数据总线跟地址总线位数相同（皆为64位），CPU不再需要地址加法器计算地址了。
 
 这些都掌握了之后，我们可以看一下**runtime**源码，重点看一下**objc/message**部分。
@@ -68,9 +68,9 @@
 前面如果你研究了runtime的objc_msgSend函数，你就会知道，该函数有两个默认参数`(receiver, cmd)`，第一个参数是消息接收者，第二个是函数地址。在**iOS arm64 CPU**中，通用寄存器中的`x0~x7`寄存器 用于参数传递。所已`x0`寄存器的值就是我们该函数的第一个参数：消息接收者，也就是DJHomeViewController类型的一个对象。结合po命令，我们就可以查看很多东西了。
 第二个参数是函数地址，对应`x1`寄存器。
 objc_msgSend中第三个参数（`x2`寄存器），就是viewDidAppear:后面的传参了，我们看到这个值是0. 回头看看`class-dump`，可以看到这个参数要求传一个布尔值，那么 我们就可以猜出该函数被调用时候，入参是false。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915035829663.png = 800x180)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915035829663.png)
 有了对象和参数地址，你就拥有了一切。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915040155970.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70 =800x210)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915040155970.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70 )
 比如，我们通过class-dump 看到该类有这么一个属性，那我们就可以直接访问！
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915040558481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70)
 我们可以用`p`命令 输出一下对象，该功能有点类似于`expression`命令。
@@ -79,4 +79,4 @@ objc_msgSend中第三个参数（`x2`寄存器），就是viewDidAppear:后面�
 **lldb**常用命令可以[看这里](https://www.jianshu.com/p/7fb43e0b956a)、[或这里](https://juejin.im/post/5b1cd870e51d4506dc0ac76c)。网上有很多这类文章，大家可以自行查找。
 
 到这里，我们可以看到，假如调试的时候能看到函数名，那我们逆向就没有任何阻碍。所以，符号表是我们的必争之地！
-如何还原符号表，请看下集：[iOS逆向（四）：还原符号表，再无障碍](https://blog.csdn.net/u012241552/article/details/100852468)。
+如何还原符号表，请看下集：[iOS逆向（四）：还原符号表，再无障碍](https://github.com/OPTJoker/iOS_Reverse/blob/master/iOS%E9%80%86%E5%90%91%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E8%BF%98%E5%8E%9F%E7%AC%A6%E5%8F%B7%E8%A1%A8%EF%BC%8C%E5%86%8D%E6%97%A0%E9%9A%9C%E7%A2%8D.md)。
