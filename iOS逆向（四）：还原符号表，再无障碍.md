@@ -27,13 +27,15 @@ Xcode显示调用堆栈中符号时，只会显示符号表中有的符号。为
 该函数也是`FindContactSearchViewCellInfo`类中的。
 移步**IDA**工具，看该函数实现：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019091513381093.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70)
+
 惊不惊喜，怪不得重写了网络请求的创建，依然搜不到想要的结果。而且我也曾试着重写过wx的`getSearchBarText`方法，仍然不起作用。
 原来是消息回来之后，wx拿searchBar.text 跟 request的请求参数（userName就是）做了比对，最终丢掉了这次的请求包。最后又stopLoading了。
 
 我怀疑这是wx来了一个新人，不知道该类有`getSearchBarText`方法，所以直接自己手动取值了。导致正常的微信用起来会有一个bug：点击搜索的瞬间，删除一位搜索框的内容。loading就停不下了。
 
 哦对了，附上别人的符号表还原效果图：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190915134436814.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70)
+![符号表还原效果](https://img-blog.csdnimg.cn/20190915134436814.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTIyNDE1NTI=,size_16,color_FFFFFF,t_70)
+
 我们断点到`stopLoading`以后，也是这种效果。
 
 至此，调试三方app就跟调试自己的app一样了。
