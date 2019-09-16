@@ -68,4 +68,4 @@ FaceBook出品，通过修改**Mach-O**外部函数地址的方式，达到hook�
 
 
 
-**好了，前期的工具和理论基础，先准备这些就够了，迫不及待的小伙伴们 你们可以开始动手试验了，请移步：** [iOS最新学习资料（二）：上机调试](https://blog.csdn.net/u012241552/article/details/100778740)
+**好了，前期的工具和理论基础，先准备这些就够了，迫不及待的小伙伴们 你们可以开始动手试验了，请移步：** [iOS逆向（二）：实践篇](https://github.com/OPTJoker/iOS_Reverse/blob/master/iOS%E9%80%86%E5%90%91%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%AE%9E%E8%B7%B5%E7%AF%87.md)
