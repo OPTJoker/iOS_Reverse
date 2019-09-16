@@ -73,5 +73,5 @@ Hook也Hook了，代码也重写了，那么接下来就到了见证奇迹的时
 
 恭喜你，问到了逆向的精髓之处。在此之前，我被卡了两星期。就是从这儿起，我开始沉下来学习了汇编原理和iOS的一些底层原理，最终越过山丘。
 
-请继续收看下集： [**iOS逆向（三）：强大的断点调试工具**](https://blog.csdn.net/u012241552/article/details/100809992)
+请继续收看下集： [**iOS逆向（三）：强大的断点调试工具**](https://github.com/OPTJoker/iOS_Reverse/blob/master/iOS%E9%80%86%E5%90%91%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7.md)
 。
